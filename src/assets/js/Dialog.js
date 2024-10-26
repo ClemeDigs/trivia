@@ -6,10 +6,8 @@ export default class Dialog {
   }
 
   init() {
-    // Écouteur global pour ouvrir ou fermer les modales au clic
     window.addEventListener("click", (e) => this.toggleDialog(e));
 
-    // Fermer les modales lorsqu'un bouton "fermer" est cliqué
     this.btnsClose.forEach((btn) =>
       btn.addEventListener("click", (e) => this.closeDialogs(e))
     );
@@ -22,7 +20,6 @@ export default class Dialog {
       ? document.querySelector(dialogSelector)
       : null;
 
-    // Si un élément avec data-dialog est cliqué, ouvrir/fermer la modale correspondante
     if (dialog) {
       dialog.hasAttribute("open")
         ? this.closeDialog(dialog)
@@ -38,11 +35,11 @@ export default class Dialog {
         if (e.target === dialog) this.closeDialog(dialog);
       },
       { once: true }
-    ); // Fermeture en cliquant en dehors du contenu de la modale
+    );
   }
 
   closeDialogs(e) {
-    e.stopPropagation(); // Empêche la fermeture globale
+    e.stopPropagation();
     this.dialogs.forEach((dialog) => this.closeDialog(dialog));
   }
 

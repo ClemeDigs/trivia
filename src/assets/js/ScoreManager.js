@@ -32,7 +32,7 @@ export default class ScoreManager {
   displayScore(currentQuestionIndex) {
     this.numberQuestionHtml.textContent = currentQuestionIndex + " questions";
     this.scorePercentHtml.textContent =
-      this.calculateScorePercent(currentQuestionIndex) + " %";
+      this.calculateScorePercent(currentQuestionIndex) + "&nbsp;%";
   }
 
   updateProgressBar(currentQuestionIndex, game) {

@@ -2,7 +2,6 @@ import imgScore from "../img/score.svg";
 
 export default class BestScores {
   constructor() {
-    this.bestScores = [];
     this.savedBestScores = JSON.parse(localStorage.getItem("bestScores")) || [];
     this.bestScoresContainer = document.querySelector(".best-scores-container");
     this.modaleContainerBestScoresHtml = document.querySelector(
@@ -34,7 +33,7 @@ export default class BestScores {
           }" alt="avatar de ${user.name}">
           <p class="font-bold">${user.name}</p>
           <p style="background-image: url(${imgScore})" class="bg-[length:70%] lg:bg-[length:75%] bg-no-repeat bg-center text-[16px] md:text-[20px] lg:text-[38px] font-semibold text-center text-offWhite drop-shadow-trivia px-4 py-5 md:px-8 md:py-10">
-            ${bestScore.score} %
+            ${bestScore.score}&nbsp;%
           </p>
           <p class="text-sm font-bold">${date.toLocaleDateString(
             "en-US",
@@ -50,7 +49,6 @@ export default class BestScores {
     this.sortScores();
     const scoresHtml = this.toBestScoreLigne();
 
-    // Remplir chaque conteneur avec les scores sans duplication
     this.bestScoresContainer.innerHTML = scoresHtml;
     this.modaleContainerBestScoresHtml.innerHTML = scoresHtml;
   }

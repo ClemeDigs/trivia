@@ -5,7 +5,9 @@ import User from "./User";
 import BestScores from "./BestScores.js";
 import Game from "./Game.js";
 import Slider from "./Slider";
+import Dialog from "./Dialog.js";
 
+const dialogManager = new Dialog();
 const settingsManager = new Settings();
 const pageChanger = new PageChanger();
 const scoreManager = new ScoreManager();

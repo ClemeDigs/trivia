@@ -19,9 +19,6 @@ export default class PageChanger {
       ".bg-mountain"
     ).style.backgroundImage = `url(${imgMountain})`;
     document.querySelector(
-      ".bg-desert"
-    ).style.backgroundImage = `url(${imgDesert})`;
-    document.querySelector(
       ".bg-beach"
     ).style.backgroundImage = `url(${imgBeach})`;
   }
@@ -71,7 +68,6 @@ export default class PageChanger {
       case "accueil":
         this.ecranAccueil.classList.remove("hidden");
         this.ecranAccueil.classList.add("flex");
-        this.header.classList.remove("bg-beach");
         this.header.style.backgroundImage = `url(${imgDesert})`;
         this.welcome.classList.remove("hidden");
         this.result.classList.add("hidden");

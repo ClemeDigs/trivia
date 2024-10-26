@@ -116,16 +116,6 @@ export default class Settings {
 
   applySettingsToForm() {
     this.categoriesSelect.value = this.settings.category || "any";
-    /*         console.log(Array.from(this.categoriesSelect.options))
-
-        for(let option of this.categoriesSelect.options) {
-            console.log(option.value)
-            if(option.value === this.settings.category) {
-                console.log('ok')
-                option.setAttribute('selected', '');
-            }
-        } */
-
     this.difficultyRadios.forEach((radio) => {
       if (radio.value === this.settings.difficulty) {
         radio.checked = true;

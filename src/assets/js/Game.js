@@ -2,9 +2,7 @@ import imgDesert from "../img/desert.png";
 import ScoreManager from "./ScoreManager";
 import PageChanger from "./Page-Changer";
 import BestScores from "./BestScores.js";
-import Dialog from "./Dialog.js";
 
-const dialogManager = new Dialog();
 const pageChanger = new PageChanger();
 const scoreManager = new ScoreManager();
 const bestScoresInstance = new BestScores();
@@ -109,27 +107,22 @@ export default class Game {
     scoreManager.displayScore(this.currentQuestionIndex);
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
-    // Créer un nouvel objet score
     const userScore = {
       user: currentUser,
       score: scoreManager.calculateScorePercent(this.currentQuestionIndex),
-      date: new Date().toISOString(), // Stocker la date au format ISO
+      date: new Date().toISOString(),
     };
 
-    // Ajouter le score à l'instance des meilleurs scores
     bestScoresInstance.savedBestScores.push(userScore);
     bestScoresInstance.sortScores();
 
-    // Mettre à jour le stockage local avec les meilleurs scores
     localStorage.setItem(
       "bestScores",
       JSON.stringify(bestScoresInstance.savedBestScores)
     );
 
-    // Réinitialiser le jeu
     this.resetGame();
 
-    // Afficher les meilleurs scores
     bestScoresInstance.displayBestScores();
   }
 
@@ -157,7 +150,6 @@ export default class Game {
     this.modaleContinue.setAttribute("closing", "");
     this.modaleContinue.removeAttribute("open");
     pageChanger.switchScreen("accueil");
-    console.log("game restart");
   }
 
   continueGame() {
