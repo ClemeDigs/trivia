@@ -1,3 +1,4 @@
+import imgDesert from "../img/desert.png";
 import ScoreManager from "./ScoreManager";
 import PageChanger from "./Page-Changer";
 import BestScores from "./BestScores.js";
@@ -15,6 +16,7 @@ export default class Game {
     this.questionHtml = document.querySelector(".question");
     this.responsesHtml = document.querySelectorAll(".response");
     this.modaleContinue = document.querySelector(".modale-continue");
+    this.modaleContinue.style.backgroundImage = `url(${imgDesert})`;
   }
 
   fetchGame(url) {
