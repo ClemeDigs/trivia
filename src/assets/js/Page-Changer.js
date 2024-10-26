@@ -15,6 +15,15 @@ export default class PageChanger {
     this.btnsSettings = document.querySelectorAll(".btn-settings");
     this.btnsStart = document.querySelectorAll(".btn-start");
     this.currentScreen = "accueil";
+    document.querySelector(
+      "#settings"
+    ).style.backgroundImage = `url(${imgMountain})`;
+    document.querySelector(
+      "#continue"
+    ).style.backgroundImage = `url(${imgDesert})`;
+    document.querySelector(
+      "#best-scores"
+    ).style.backgroundImage = `url(${imgBeach})`;
   }
 
   hideAllScreens() {
