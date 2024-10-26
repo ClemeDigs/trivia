@@ -16,13 +16,13 @@ export default class PageChanger {
     this.btnsStart = document.querySelectorAll(".btn-start");
     this.currentScreen = "accueil";
     document.querySelector(
-      "#settings"
+      ".bg-mountain"
     ).style.backgroundImage = `url(${imgMountain})`;
     document.querySelector(
-      "#continue"
+      ".bg-desert"
     ).style.backgroundImage = `url(${imgDesert})`;
     document.querySelector(
-      "#best-scores"
+      ".bg-beach"
     ).style.backgroundImage = `url(${imgBeach})`;
   }
 
