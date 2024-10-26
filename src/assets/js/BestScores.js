@@ -1,3 +1,5 @@
+import imgScore from "../img/score.svg";
+
 export default class BestScores {
   constructor() {
     this.bestScores = [];
@@ -31,7 +33,7 @@ export default class BestScores {
             user.avatar
           }" alt="avatar de ${user.name}">
           <p class="font-bold">${user.name}</p>
-          <p class="bg-score-img bg-[length:70%] lg:bg-[length:75%] bg-no-repeat bg-center text-[16px] md:text-[20px] lg:text-[38px] font-semibold text-center text-offWhite drop-shadow-trivia px-4 py-5 md:px-8 md:py-10">
+          <p style="background-image: url(${imgScore})" class="bg-[length:70%] lg:bg-[length:75%] bg-no-repeat bg-center text-[16px] md:text-[20px] lg:text-[38px] font-semibold text-center text-offWhite drop-shadow-trivia px-4 py-5 md:px-8 md:py-10">
             ${bestScore.score} %
           </p>
           <p class="text-sm font-bold">${date.toLocaleDateString(

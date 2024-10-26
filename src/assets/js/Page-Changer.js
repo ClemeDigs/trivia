@@ -1,3 +1,8 @@
+import imgDesert from "../img/desert.png";
+import imgMountain from "../img/mountain.jpg";
+import imgBeach from "../img/beach.jpg";
+import imgScore from "../img/score.svg";
+
 export default class PageChanger {
   constructor() {
     this.ecranAccueil = document.querySelector(".ecran-accueil");
@@ -28,8 +33,7 @@ export default class PageChanger {
       case "game":
         this.ecranJeu.classList.remove("hidden");
         this.ecranJeu.classList.add("flex");
-        this.header.classList.remove("bg-desert");
-        this.header.classList.add("bg-mountain");
+        this.header.style.backgroundImage = `url(${imgMountain})`;
         this.welcome.classList.add("hidden");
         this.result.classList.remove("hidden");
         this.result.classList.add("flex");
@@ -44,8 +48,7 @@ export default class PageChanger {
       case "end":
         this.ecranFin.classList.remove("hidden");
         this.ecranFin.classList.add("flex");
-        this.header.classList.remove("bg-mountain");
-        this.header.classList.add("bg-beach");
+        this.header.style.backgroundImage = `url(${imgBeach})`;
         this.btnsStart.forEach((btn) => {
           btn.setAttribute("disabled", "");
         });
@@ -58,8 +61,7 @@ export default class PageChanger {
         this.ecranAccueil.classList.remove("hidden");
         this.ecranAccueil.classList.add("flex");
         this.header.classList.remove("bg-beach");
-        this.header.classList.remove("bg-mountain");
-        this.header.classList.add("bg-desert");
+        this.header.style.backgroundImage = `url(${imgDesert})`;
         this.welcome.classList.remove("hidden");
         this.result.classList.add("hidden");
         this.result.classList.remove("flex");
