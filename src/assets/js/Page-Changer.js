@@ -5,6 +5,7 @@ import imgScore from "../img/score.svg";
 
 export default class PageChanger {
   constructor() {
+    this.scoreHtml = document.querySelector(".score");
     this.ecranAccueil = document.querySelector(".ecran-accueil");
     this.ecranJeu = document.querySelector(".ecran-jeu");
     this.ecranFin = document.querySelector(".ecran-fin");
@@ -37,6 +38,7 @@ export default class PageChanger {
         this.welcome.classList.add("hidden");
         this.result.classList.remove("hidden");
         this.result.classList.add("flex");
+        this.scoreHtml.style.backgroundImage = `url(${imgScore})`;
         this.btnsStart.forEach((btn) => {
           btn.setAttribute("disabled", true);
         });
