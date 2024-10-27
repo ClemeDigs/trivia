@@ -7,26 +7,98 @@ import Game from "./Game.js";
 import Slider from "./Slider";
 import Dialog from "./Dialog.js";
 
+/**
+ * @type {Dialog}
+ */
 const dialogManager = new Dialog();
+
+/**
+ * @type {Settings}
+ */
 const settingsManager = new Settings();
+
+/**
+ * @type {PageChanger}
+ */
 const pageChanger = new PageChanger();
+
+/**
+ * @type {ScoreManager}
+ */
 const scoreManager = new ScoreManager();
+
+/**
+ * @type {Game}
+ */
 const gameManager = new Game();
+
+/**
+ * @type {Slider}
+ */
 const slider = new Slider();
 
+/**
+ * @type {HTMLElement}
+ */
 const modaleContinue = document.querySelector(".modale-continue");
+
+/**
+ * @type {HTMLElement}
+ */
 const btnContinue = document.querySelector(".btn-continue");
+
+/**
+ * @type {HTMLElement}
+ */
 const btnsRestart = document.querySelectorAll(".btn-restart");
+
+/**
+ * @type {HTMLElement}
+ */
 const btnsStart = document.querySelectorAll(".btn-start");
+
+/**
+ * @type {HTMLElement}
+ */
 const inputName = document.getElementById("user-name");
+
+/**
+ * @type {HTMLElement}
+ */
 const choosenAvatar = document.querySelector(".img-avatar");
+
+/**
+ * @type {HTMLElement}
+ */
 const currentNameHtml = document.querySelector(".current-name");
+
+/**
+ * @type {HTMLElement}
+ */
 const currentAvatarHtml = document.querySelector(".current-avatar");
+
+/**
+ * @type {HTMLElement}
+ */
 const msgError = document.querySelector(".msg-error");
+
+/**
+ * @type {[]}
+ */
 let bestScores = JSON.parse(localStorage.getItem("bestScores")) || [];
+
+/**
+ * @type {BestScores}
+ */
 const bestScoresInstance = new BestScores(bestScores);
 
+/**
+ * @returns {void}
+ */
 function checkCurrentUser() {
+  /**
+   * @type {Object}
+   */
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
   if (!currentUser) {
@@ -49,11 +121,20 @@ checkCurrentUser();
 
 btnsStart.forEach((btnStart) => {
   btnStart.addEventListener("click", () => {
+    /**
+     * @type {string}
+     */
     const username = inputName.value.trim();
     if (username.length > 1) {
       msgError.textContent = "";
+      /**
+       * @type {User}
+       */
       const user = new User(username, choosenAvatar.getAttribute("src"));
       user.saveCurrentUser();
+      /**
+       * @type {string}
+       */
       const gameUrl = settingsManager.getUrlBySettings();
       gameManager.fetchGame(gameUrl);
     } else {

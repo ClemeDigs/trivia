@@ -3,26 +3,60 @@ import ScoreManager from "./ScoreManager";
 import PageChanger from "./Page-Changer";
 import BestScores from "./BestScores.js";
 
+/**
+ * @type {PageChanger}
+ */
 const pageChanger = new PageChanger();
+/**
+ * @type {ScoreManager}
+ */
 const scoreManager = new ScoreManager();
+/**
+ * @type {BestScores}
+ */
 const bestScoresInstance = new BestScores();
 
+/**
+ * @type {Game}
+ */
 export default class Game {
   constructor() {
+    /**
+     * @type {number}
+     */
     this.currentQuestionIndex = 0;
 
+    /**
+     * @type {HTMLElement}
+     */
     this.questionHtml = document.querySelector(".question");
+
+    /**
+     * @type {HTMLElement[]}
+     */
     this.responsesHtml = document.querySelectorAll(".response");
+
+    /**
+     * @type {HTMLElement}
+     */
     this.modaleContinue = document.querySelector(".modale-continue");
+
     document.querySelector(
       ".continue-screen"
     ).style.backgroundImage = `url(${imgDesert})`;
   }
 
+  /**
+   * @returns {void}
+   * @param {string} url
+   */
   fetchGame(url) {
     return fetch(url)
       .then((response) => response.json())
       .then((data) => {
+        /**
+         * @type {Object}
+         */
         this.game = data;
         localStorage.setItem("oldGame", JSON.stringify(this.game));
         this.displayQuestion();
@@ -33,10 +67,23 @@ export default class Game {
       });
   }
 
+  /**
+   * @returns {boolean}
+   */
   gameFromLocalStorage() {
+    /**
+     * @type {string}
+     */
     let oldGameData = localStorage.getItem("oldGame");
     if (oldGameData) {
+      /**
+       * @type {object}
+       */
       this.game = JSON.parse(oldGameData);
+
+      /**
+       * @type {number}
+       */
       this.currentQuestionIndex =
         JSON.parse(localStorage.getItem("currentQuestion")) || 0;
       return true;
@@ -44,6 +91,11 @@ export default class Game {
     return false;
   }
 
+  /**
+   * @returns {void}
+   * @param {string} selectedAnswer
+   * @param {string} correctAnswer
+   */
   verifyAnswer(selectedAnswer, correctAnswer) {
     if (selectedAnswer === correctAnswer) {
       scoreManager.incrementScore();
@@ -58,23 +110,43 @@ export default class Game {
     scoreManager.displayScore(this.currentQuestionIndex);
   }
 
+  /**
+   * Décode une chaîne HTML encodée en texte brut.
+   * Crée un élément `<textarea>`, insère la chaîne HTML encodée,
+   * et récupère le texte décodé.
+   * @param {string} html - La chaîne HTML encodée à décoder.
+   * @returns {string} - Le texte décodé.
+   */
   decodeHtml(html) {
     const txt = document.createElement("textarea");
     txt.innerHTML = html;
     return txt.value;
   }
 
+  /**
+   * @returns {void}
+   */
   displayQuestion() {
     if (this.currentQuestionIndex >= this.game.results.length) {
       return this.endGame();
     }
 
+    /**
+     * @type {string}
+     */
     const question = this.game.results[this.currentQuestionIndex].question;
     this.questionHtml.innerHTML = this.decodeHtml(question);
 
+    /**
+     * @type {string}
+     */
     const correctAnswer = this.decodeHtml(
       this.game.results[this.currentQuestionIndex].correct_answer
     );
+
+    /**
+     * @type {string[]}
+     */
     let responses = this.game.results[
       this.currentQuestionIndex
     ].incorrect_answers.map((answer) => this.decodeHtml(answer));
@@ -110,11 +182,23 @@ export default class Game {
     scoreManager.displayScore(this.currentQuestionIndex);
   }
 
+  /**
+   * @returns {void}
+   */
   endGame() {
     pageChanger.switchScreen("end");
     scoreManager.displayScore(this.currentQuestionIndex);
+    /**
+     * @type {object}
+     */
     const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 
+    /**
+     * @type {object}
+     * @property {object} user
+     * @property {number} user
+     * @property {string} user
+     */
     const userScore = {
       user: currentUser,
       score: scoreManager.calculateScorePercent(this.currentQuestionIndex),
@@ -134,6 +218,9 @@ export default class Game {
     bestScoresInstance.displayBestScores();
   }
 
+  /**
+   * @returns {void}
+   */
   resetGame() {
     this.resetLocalStorage();
     this.game = {};
@@ -141,6 +228,9 @@ export default class Game {
     this.responsesHtml.forEach((response) => (response.textContent = ""));
   }
 
+  /**
+   * @returns {void}
+   */
   resetLocalStorage() {
     localStorage.removeItem("oldGame");
     localStorage.removeItem("currentQuestion");
@@ -148,18 +238,23 @@ export default class Game {
     localStorage.removeItem("score");
   }
 
+  /**
+   * @returns {void}
+   */
   restartGame() {
     this.resetGame();
     this.currentQuestionIndex = 0;
     scoreManager.currentScore = 0;
     scoreManager.resetScores();
     scoreManager.resetProgressBar();
-    localStorage.removeItem("currentUser");
     this.modaleContinue.setAttribute("closing", "");
     this.modaleContinue.removeAttribute("open");
     pageChanger.switchScreen("accueil");
   }
 
+  /**
+   * @returns {void}
+   */
   continueGame() {
     this.modaleContinue.setAttribute("closing", "");
     this.modaleContinue.removeAttribute("open");

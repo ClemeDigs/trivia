@@ -1,12 +1,34 @@
+/**
+ * @type {User}
+ */
 export default class User {
+  /**
+   * @param {string} name
+   * @param {string} avatar
+   */
   constructor(name, avatar) {
+    /**
+     * @type {HTMLElement}
+     */
     this.currentNameHtml = document.querySelector(".current-name");
+    /**
+     * @type {HTMLElement}
+     */
     this.currentAvatarHtml = document.querySelector(".current-avatar");
 
+    /**
+     * @type {string}
+     */
     this.name = name;
+    /**
+     * @type {string}
+     */
     this.avatar = avatar;
   }
 
+  /**
+   * @returns {void}
+   */
   saveCurrentUser() {
     localStorage.setItem(
       "currentUser",
@@ -14,13 +36,25 @@ export default class User {
     );
   }
 
+  /**
+   * @returns {User|null}
+   */
   static getCurrentUser() {
+    /**
+     * @type {object}
+     */
     const currentUserData = JSON.parse(localStorage.getItem("currentUser"));
-    return currentUserData
-      ? new User(currentUserData.name, currentUserData.avatar)
-      : null;
+
+    if (currentUserData) {
+      return new User(currentUserData.name, currentUserData.avatar);
+    }
+
+    return null;
   }
 
+  /**
+   * @returns {void}
+   */
   setUser() {
     this.currentUser = User.getCurrentUser();
     this.currentNameHtml.textContent = currentUser.name;

@@ -1,21 +1,32 @@
+/**
+ * @type {Dialog}
+ */
 export default class Dialog {
   constructor() {
+    /**
+     * @type {HTMLElement[]}
+     */
     this.dialogs = document.querySelectorAll(".dialog");
+    /**
+     * @type {HTMLElement[]}
+     */
     this.btnsClose = document.querySelectorAll(".btn-close");
 
-    // Initialisation des événements
     this.init();
   }
 
-  // Méthode d'initialisation pour configurer tous les écouteurs d'événements
+  /**
+   * @returns {void}
+   */
   init() {
     window.addEventListener("click", (e) => this.toggleDialog(e));
 
     this.dialogs.forEach((dialog) => {
-      // Écouteur pour fermer la modale en cliquant à l'extérieur
       dialog.addEventListener("click", () => this.closingDialog(dialog));
 
-      // Empêche la fermeture quand on clique à l'intérieur de la modale
+      /**
+       * @type {HTMLElement[]}
+       */
       const children = dialog.querySelectorAll(":scope > *");
       children.forEach((child) => {
         child.addEventListener("click", (e) => e.stopImmediatePropagation());
@@ -29,12 +40,24 @@ export default class Dialog {
     );
   }
 
-  // Ouvrir ou fermer la modale selon sa visibilité
+  /**
+   * @returns {void}
+   * @param {MouseEvent} e
+   */
   toggleDialog(e) {
+    /**
+     * @type {HTMLElement}
+     */
     const target = e.target;
+    /**
+     * @type {string|null}
+     */
     const dialogSelector = target.getAttribute("data-dialog");
 
     if (dialogSelector) {
+      /**
+       * @type {HTMLElement|null}
+       */
       const dialog = document.querySelector(dialogSelector);
 
       if (dialog) {
@@ -47,7 +70,10 @@ export default class Dialog {
     }
   }
 
-  // Ajoute l'animation de fermeture et l'écouteur pour retirer l'attribut 'open' après l'animation
+  /**
+   * @returns {void}
+   * @param {HTMLElement}
+   */
   closingDialog(dialog) {
     dialog.setAttribute("closing", "");
     dialog.addEventListener("animationend", () => this.closeDialog(dialog), {
@@ -55,7 +81,10 @@ export default class Dialog {
     });
   }
 
-  // Ferme la modale en retirant les attributs 'open' et 'closing'
+  /**
+   * @returns {void}
+   * @param {HTMLElement}
+   */
   closeDialog(dialog) {
     dialog.removeAttribute("open");
     dialog.removeAttribute("closing");

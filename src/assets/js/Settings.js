@@ -42,7 +42,7 @@ export default class Settings {
           optionElement.setAttribute("value", cat.id);
           this.categoriesSelect.appendChild(optionElement);
         });
-        this.applySettingsToForm(); // Déplace applySettingsToForm() en dehors de la boucle
+        this.applySettingsToForm();
       })
       .catch((error) => {
         console.error("Erreur lors du fetch des catégories:", error);

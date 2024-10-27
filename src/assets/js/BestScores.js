@@ -1,14 +1,31 @@
 import imgScore from "../img/score.svg";
 
+/**
+ * @type {BestScores}
+ */
 export default class BestScores {
   constructor() {
+    /**
+     * @type {Object[]}
+     */
     this.savedBestScores = JSON.parse(localStorage.getItem("bestScores")) || [];
+
+    /**
+     * @type {HTMLElement}
+     */
     this.bestScoresContainer = document.querySelector(".best-scores-container");
+
+    /**
+     * @type {HTMLElement}
+     */
     this.modaleContainerBestScoresHtml = document.querySelector(
       ".best-scores-modale"
     );
   }
 
+  /**
+   * @returns {void}
+   */
   sortScores() {
     this.savedBestScores.sort((a, b) => b.score - a.score);
     if (this.savedBestScores.length > 10) {
@@ -16,14 +33,37 @@ export default class BestScores {
     }
   }
 
+  /**
+   * @returns {HTMLElement}
+   */
   toBestScoreLigne() {
+    /**
+     * @type {string}
+     */
     let scoresHtml = "";
     this.savedBestScores.forEach((bestScore) => {
-      const user =
-        typeof bestScore.user === "string"
-          ? JSON.parse(bestScore.user)
-          : bestScore.user;
+      /**
+       * @type {Object}
+       */
+      let user;
+      if (typeof bestScore.user === "string") {
+        user = JSON.parse(bestScore.user);
+      } else {
+        user = bestScore.user;
+      }
+
+      /**
+       * @type {Date}
+       * @param {string|Date}
+       */
       const date = new Date(bestScore.date);
+
+      /**
+       * @type {Object}
+       * @property {string} year
+       * @property {string} month
+       * @property {string} day
+       */
       const options = { year: "numeric", month: "long", day: "numeric" };
 
       scoresHtml += `
@@ -45,8 +85,14 @@ export default class BestScores {
     return scoresHtml;
   }
 
+  /**
+   * @returns {void}
+   */
   displayBestScores() {
     this.sortScores();
+    /**
+     * @type {HTMLElement}
+     */
     const scoresHtml = this.toBestScoreLigne();
 
     this.bestScoresContainer.innerHTML = scoresHtml;

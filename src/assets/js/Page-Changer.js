@@ -3,18 +3,61 @@ import imgMountain from "../img/mountain.png";
 import imgBeach from "../img/beach.png";
 import imgScore from "../img/score.svg";
 
+/**
+ * @type {PageChanger}
+ */
 export default class PageChanger {
   constructor() {
+    /**
+     * @type {HTMLElement}
+     */
     this.scoreHtml = document.querySelector(".score");
+
+    /**
+     * @type {HTMLElement}
+     */
     this.ecranAccueil = document.querySelector(".ecran-accueil");
+
+    /**
+     * @type {HTMLElement}
+     */
     this.ecranJeu = document.querySelector(".ecran-jeu");
+
+    /**
+     * @type {HTMLElement}
+     */
     this.ecranFin = document.querySelector(".ecran-fin");
+
+    /**
+     * @type {HTMLElement}
+     */
     this.header = document.querySelector("header");
+
+    /**
+     * @type {HTMLElement}
+     */
     this.welcome = document.querySelector(".welcome");
+
+    /**
+     * @type {HTMLElement}
+     */
     this.result = document.querySelector(".result-wrapper");
+
+    /**
+     * @type {HTMLElement[]}
+     */
     this.btnsSettings = document.querySelectorAll(".btn-settings");
+
+    /**
+     * @type {HTMLElement[]}
+     */
     this.btnsStart = document.querySelectorAll(".btn-start");
+
+    /**
+     * @type {string}
+     */
     this.currentScreen = "accueil";
+
     document.querySelector(
       ".bg-mountain"
     ).style.backgroundImage = `url(${imgMountain})`;
@@ -23,6 +66,9 @@ export default class PageChanger {
     ).style.backgroundImage = `url(${imgBeach})`;
   }
 
+  /**
+   * @returns {void}
+   */
   hideAllScreens() {
     this.ecranAccueil.classList.add("hidden");
     this.ecranAccueil.classList.remove("flex");
@@ -32,6 +78,10 @@ export default class PageChanger {
     this.ecranFin.classList.remove("flex");
   }
 
+  /**
+   * @param {string} screenName
+   * @returns {void}
+   */
   switchScreen(screenName) {
     this.hideAllScreens();
     this.currentScreen = screenName;
