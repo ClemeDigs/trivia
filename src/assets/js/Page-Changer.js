@@ -1,6 +1,6 @@
 import imgDesert from "../img/desert.png";
-import imgMountain from "../img/mountain.jpg";
-import imgBeach from "../img/beach.jpg";
+import imgMountain from "../img/mountain.png";
+import imgBeach from "../img/beach.png";
 import imgScore from "../img/score.svg";
 
 export default class PageChanger {
