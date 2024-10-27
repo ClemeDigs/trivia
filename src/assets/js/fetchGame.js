@@ -14,7 +14,6 @@ const scoreManager = new ScoreManager();
 const gameManager = new Game();
 const slider = new Slider();
 
-const gameUrl = settingsManager.getUrlBySettings();
 const modaleContinue = document.querySelector(".modale-continue");
 const btnContinue = document.querySelector(".btn-continue");
 const btnsRestart = document.querySelectorAll(".btn-restart");
@@ -55,6 +54,7 @@ btnsStart.forEach((btnStart) => {
       msgError.textContent = "";
       const user = new User(username, choosenAvatar.getAttribute("src"));
       user.saveCurrentUser();
+      const gameUrl = settingsManager.getUrlBySettings();
       gameManager.fetchGame(gameUrl);
     } else {
       msgError.textContent = "Veuillez entrer un nom d'utilisateur.";

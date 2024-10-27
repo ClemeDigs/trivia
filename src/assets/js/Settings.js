@@ -20,14 +20,14 @@ export default class Settings {
 
     this.loadSettingsFromLocalStorage();
     this.init();
+    this.updateNbQuestionIndicator();
   }
 
   init() {
     this.fetchCategories();
-
     this.btnSave.addEventListener("click", (e) => this.handleSave(e));
     this.btnReset.addEventListener("click", (e) => this.handleReset(e));
-    this.nbQuestionsInput.addEventListener("change", () =>
+    this.nbQuestionsInput.addEventListener("input", () =>
       this.updateNbQuestionIndicator()
     );
   }
@@ -41,17 +41,14 @@ export default class Settings {
           optionElement.textContent = cat.name;
           optionElement.setAttribute("value", cat.id);
           this.categoriesSelect.appendChild(optionElement);
-          this.applySettingsToForm();
         });
+        this.applySettingsToForm(); // Déplace applySettingsToForm() en dehors de la boucle
       })
       .catch((error) => {
         console.error("Erreur lors du fetch des catégories:", error);
       });
   }
 
-  /**
-   * @param {Event} e
-   */
   handleSave(e) {
     e.preventDefault();
 
@@ -65,9 +62,6 @@ export default class Settings {
     localStorage.setItem("settings", JSON.stringify(this.settings));
   }
 
-  /**
-   * @param {Event} e
-   */
   handleReset(e) {
     e.preventDefault();
 
@@ -78,24 +72,17 @@ export default class Settings {
       nbQuestions: 10,
     };
 
-    this.categoriesSelect.value = "any";
-    this.difficultyRadios[0].checked = true;
-    this.typeRadios[0].checked = true;
-    this.nbQuestionsInput.value = 10;
-
+    this.applySettingsToForm();
     localStorage.setItem("settings", JSON.stringify(this.settings));
   }
 
   updateNbQuestionIndicator() {
     this.nbQuestionIndicator.textContent = this.nbQuestionsInput.value;
-    this.nbQuestionIndicator.style.left =
-      this.nbQuestionsInput.value * 1.7 + "%";
+    this.nbQuestionIndicator.style.left = `${
+      this.nbQuestionsInput.value * 1.7
+    }%`;
   }
 
-  /**
-   * @param {NodeList} radioList
-   * @returns {string}
-   */
   getSelectedRadioValue(radioList) {
     let selectedValue = "";
     radioList.forEach((radio) => {
@@ -132,13 +119,11 @@ export default class Settings {
 
   getUrlBySettings() {
     const url = "https://opentdb.com/api.php";
-
     if (!this.settings) {
       return `${url}?amount=10`;
     }
 
     let settingsUrl = `${url}?amount=${this.settings.nbQuestions}`;
-
     if (this.settings.category && this.settings.category !== "any") {
       settingsUrl += `&category=${this.settings.category}`;
     }

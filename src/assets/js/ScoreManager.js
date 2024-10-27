@@ -12,7 +12,7 @@ export default class ScoreManager {
   calculateScorePercent(currentQuestionIndex) {
     const storedScore = JSON.parse(localStorage.getItem("score"));
 
-    if (storedScore) {
+    if (storedScore !== null) {
       this.currentScore = storedScore;
     }
 
@@ -20,6 +20,7 @@ export default class ScoreManager {
       this.currentScorePercent = Math.round(
         (this.currentScore * 100) / currentQuestionIndex
       );
+      this.currentScorePercent = Math.min(this.currentScorePercent, 100);
     } else {
       this.currentScorePercent = 0;
     }
@@ -45,6 +46,8 @@ export default class ScoreManager {
   }
 
   resetScores() {
+    this.currentScore = 0;
+    localStorage.setItem("score", JSON.stringify(this.currentScore));
     this.numberQuestionHtml.textContent = 0 + " questions";
     this.scorePercentHtml.textContent = 0 + " %";
   }
@@ -63,6 +66,7 @@ export default class ScoreManager {
 
   incrementScore() {
     this.currentScore++;
+    this.saveScoreToLocalStorage();
   }
 
   getCurrentScore() {

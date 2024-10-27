@@ -48,6 +48,7 @@ export default class Game {
     if (selectedAnswer === correctAnswer) {
       scoreManager.incrementScore();
     }
+
     this.currentQuestionIndex++;
     localStorage.setItem(
       "currentQuestion",
@@ -71,19 +72,25 @@ export default class Game {
     const question = this.game.results[this.currentQuestionIndex].question;
     this.questionHtml.innerHTML = this.decodeHtml(question);
 
-    const correctAnswer =
-      this.game.results[this.currentQuestionIndex].correct_answer;
-    let responses =
-      this.game.results[this.currentQuestionIndex].incorrect_answers.concat(
-        correctAnswer
-      );
+    const correctAnswer = this.decodeHtml(
+      this.game.results[this.currentQuestionIndex].correct_answer
+    );
+    let responses = this.game.results[
+      this.currentQuestionIndex
+    ].incorrect_answers.map((answer) => this.decodeHtml(answer));
+    responses.push(correctAnswer);
     responses.sort(() => Math.random() - 0.5);
+
+    this.responsesHtml.forEach((responseHtml) => {
+      responseHtml.classList.remove("hidden");
+      responseHtml.onclick = null;
+    });
 
     if (responses.length === 2) {
       this.responsesHtml.forEach((responseHtml, index) => {
         if (index < 2) {
           responseHtml.classList.remove("hidden");
-          responseHtml.textContent = this.decodeHtml(responses[index]);
+          responseHtml.textContent = responses[index];
           responseHtml.onclick = () =>
             this.verifyAnswer(responses[index], correctAnswer);
         } else {
@@ -93,11 +100,12 @@ export default class Game {
     } else {
       this.responsesHtml.forEach((responseHtml, index) => {
         responseHtml.classList.remove("hidden");
-        responseHtml.textContent = this.decodeHtml(responses[index]);
+        responseHtml.textContent = responses[index];
         responseHtml.onclick = () =>
           this.verifyAnswer(responses[index], correctAnswer);
       });
     }
+
     scoreManager.updateProgressBar(this.currentQuestionIndex, this.game);
     scoreManager.displayScore(this.currentQuestionIndex);
   }
