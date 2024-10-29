@@ -6,6 +6,11 @@ export default class Settings {
     /**
      * @type {HTMLElement}
      */
+    this.modalSettings = document.querySelector("#settings");
+
+    /**
+     * @type {HTMLElement}
+     */
     this.formSettings = document.querySelector(".settings-inputs");
     /**
      * @type {HTMLElement}
@@ -103,6 +108,9 @@ export default class Settings {
     this.settings.nbQuestions = this.nbQuestionsInput.value;
 
     localStorage.setItem("settings", JSON.stringify(this.settings));
+
+    this.modalSettings.setAttribute("closing", "");
+    this.modalSettings.removeAttribute("open");
   }
 
   /**

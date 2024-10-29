@@ -39,6 +39,11 @@ export default class Game {
     /**
      * @type {HTMLElement}
      */
+    this.msgError = document.querySelector(".msg-error");
+
+    /**
+     * @type {HTMLElement}
+     */
     this.modaleContinue = document.querySelector(".modale-continue");
 
     document.querySelector(
@@ -54,13 +59,18 @@ export default class Game {
     return fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        /**
-         * @type {Object}
-         */
-        this.game = data;
-        localStorage.setItem("oldGame", JSON.stringify(this.game));
-        this.displayQuestion();
-        pageChanger.switchScreen("game");
+        if (data.response_code === 1) {
+          this.msgError.textContent =
+            "Please change your settings. The game doesn't have enough questions with the selected settings.";
+        } else {
+          /**
+           * @type {Object}
+           */
+          this.game = data;
+          localStorage.setItem("oldGame", JSON.stringify(this.game));
+          this.displayQuestion();
+          pageChanger.switchScreen("game");
+        }
       })
       .catch((error) => {
         console.error("Erreur de fetch:", error);
