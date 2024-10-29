@@ -1,3 +1,7 @@
+import PageChanger from "./Page-Changer";
+
+const pageChanger = new PageChanger();
+
 /**
  * @type {ScoreManager}
  */
@@ -55,7 +59,9 @@ export default class ScoreManager {
     } else {
       this.currentScorePercent = 0;
     }
-    localStorage.setItem("score", JSON.stringify(this.currentScore));
+    if (pageChanger.currentScreen === "game") {
+      localStorage.setItem("score", JSON.stringify(this.currentScore));
+    }
     return this.currentScorePercent;
   }
 
@@ -90,8 +96,8 @@ export default class ScoreManager {
    * @returns {void}
    */
   resetScores() {
-    this.currentScore = 0;
     localStorage.setItem("score", JSON.stringify(this.currentScore));
+    this.currentScore = 0;
     this.numberQuestionHtml.textContent = 0 + " questions";
     this.scorePercentHtml.textContent = 0 + " %";
   }

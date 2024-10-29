@@ -36,6 +36,11 @@ export default class PageChanger {
     /**
      * @type {HTMLElement}
      */
+    this.body = document.querySelector("body");
+
+    /**
+     * @type {HTMLElement}
+     */
     this.welcome = document.querySelector(".welcome");
 
     /**
@@ -90,7 +95,8 @@ export default class PageChanger {
       case "game":
         this.ecranJeu.classList.remove("hidden");
         this.ecranJeu.classList.add("flex");
-        this.header.style.backgroundImage = `url(${imgMountain})`;
+        this.body.style.backgroundColor = "#36219A";
+        this.body.style.backgroundImage = `url(${imgMountain})`;
         this.welcome.classList.add("hidden");
         this.result.classList.remove("hidden");
         this.result.classList.add("flex");
@@ -106,7 +112,8 @@ export default class PageChanger {
       case "end":
         this.ecranFin.classList.remove("hidden");
         this.ecranFin.classList.add("flex");
-        this.header.style.backgroundImage = `url(${imgBeach})`;
+        this.body.style.backgroundColor = "rgb(171,179,55)";
+        this.body.style.backgroundImage = `url(${imgBeach})`;
         this.btnsStart.forEach((btn) => {
           btn.setAttribute("disabled", "");
         });
@@ -118,7 +125,8 @@ export default class PageChanger {
       case "accueil":
         this.ecranAccueil.classList.remove("hidden");
         this.ecranAccueil.classList.add("flex");
-        this.header.style.backgroundImage = `url(${imgDesert})`;
+        this.body.style.backgroundColor = "#bf5737";
+        this.body.style.backgroundImage = `url(${imgDesert})`;
         this.welcome.classList.remove("hidden");
         this.result.classList.add("hidden");
         this.result.classList.remove("flex");

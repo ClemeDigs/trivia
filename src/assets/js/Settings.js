@@ -1,16 +1,46 @@
+/**
+ * @type {Settings}
+ */
 export default class Settings {
   constructor() {
+    /**
+     * @type {HTMLElement}
+     */
     this.formSettings = document.querySelector(".settings-inputs");
+    /**
+     * @type {HTMLElement}
+     */
     this.categoriesSelect = document.querySelector("#category");
+    /**
+     * @type {HTMLElement[]}
+     */
     this.difficultyRadios = document.querySelectorAll(
       'input[name="difficulty"]'
     );
+    /**
+     * @type {HTMLElement[]}
+     */
     this.typeRadios = document.querySelectorAll('input[name="type"]');
+    /**
+     * @type {HTMLElement}
+     */
     this.nbQuestionsInput = document.querySelector("#nb-question");
+    /**
+     * @type {HTMLElement}
+     */
     this.btnSave = document.querySelector(".btn-save");
+    /**
+     * @type {HTMLElement}
+     */
     this.btnReset = document.querySelector(".btn-reset");
+    /**
+     * @type {HTMLElement}
+     */
     this.nbQuestionIndicator = document.querySelector(".nb-question-indicator");
 
+    /**
+     * @type {{category: string, difficulty: string, type: string, nbQuestions: number}}
+     */
     this.settings = {
       category: "",
       difficulty: "",
@@ -23,6 +53,9 @@ export default class Settings {
     this.updateNbQuestionIndicator();
   }
 
+  /**
+   * @returns {void}
+   */
   init() {
     this.fetchCategories();
     this.btnSave.addEventListener("click", (e) => this.handleSave(e));
@@ -32,11 +65,17 @@ export default class Settings {
     );
   }
 
+  /**
+   * @returns {void}
+   */
   fetchCategories() {
     fetch("https://opentdb.com/api_category.php")
       .then((response) => response.json())
       .then((data) => {
         data.trivia_categories.forEach((cat) => {
+          /**
+           * @type {HTMLElement}
+           */
           const optionElement = document.createElement("option");
           optionElement.textContent = cat.name;
           optionElement.setAttribute("value", cat.id);
@@ -49,6 +88,10 @@ export default class Settings {
       });
   }
 
+  /**
+   * @param {MouseEvent} e
+   * @returns {void}
+   */
   handleSave(e) {
     e.preventDefault();
 
@@ -62,6 +105,10 @@ export default class Settings {
     localStorage.setItem("settings", JSON.stringify(this.settings));
   }
 
+  /**
+   * @param {MouseEvent} e
+   * @returns {void}
+   */
   handleReset(e) {
     e.preventDefault();
 
@@ -76,6 +123,9 @@ export default class Settings {
     localStorage.setItem("settings", JSON.stringify(this.settings));
   }
 
+  /**
+   * @returns {void}
+   */
   updateNbQuestionIndicator() {
     this.nbQuestionIndicator.textContent = this.nbQuestionsInput.value;
     this.nbQuestionIndicator.style.left = `${
@@ -83,7 +133,14 @@ export default class Settings {
     }%`;
   }
 
+  /**
+   * @param {HTMLElement[]} radioList
+   * @returns {string}
+   */
   getSelectedRadioValue(radioList) {
+    /**
+     * @type {string}
+     */
     let selectedValue = "";
     radioList.forEach((radio) => {
       if (radio.checked) {
@@ -93,7 +150,13 @@ export default class Settings {
     return selectedValue;
   }
 
+  /**
+   * @returns {void}
+   */
   loadSettingsFromLocalStorage() {
+    /**
+     * @type {string}
+     */
     const savedSettings = localStorage.getItem("settings");
     if (savedSettings) {
       this.settings = JSON.parse(savedSettings);
@@ -101,6 +164,9 @@ export default class Settings {
     }
   }
 
+  /**
+   * @returns {void}
+   */
   applySettingsToForm() {
     this.categoriesSelect.value = this.settings.category || "any";
     this.difficultyRadios.forEach((radio) => {
@@ -117,12 +183,20 @@ export default class Settings {
     this.updateNbQuestionIndicator();
   }
 
+  /**
+   * @returns {string}
+   */
   getUrlBySettings() {
+    /**
+     * @type {string}
+     */
     const url = "https://opentdb.com/api.php";
     if (!this.settings) {
       return `${url}?amount=10`;
     }
-
+    /**
+     * @type {string}
+     */
     let settingsUrl = `${url}?amount=${this.settings.nbQuestions}`;
     if (this.settings.category && this.settings.category !== "any") {
       settingsUrl += `&category=${this.settings.category}`;

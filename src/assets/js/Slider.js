@@ -1,9 +1,27 @@
+/**
+ * @type {Slider}
+ */
 export default class Slider {
   constructor() {
+    /**
+     * @type {HTMLElement}
+     */
     this.btnPrevious = document.querySelector(".btn-previous");
+    /**
+     * @type {HTMLElement}
+     */
     this.btnNext = document.querySelector(".btn-next");
+    /**
+     * @type {HTMLElement[]}
+     */
     this.slides = document.querySelectorAll(".avatar-choice");
+    /**
+     * @type {HTMLElement}
+     */
     this.slidesContainer = document.querySelector(".avatar-choices");
+    /**
+     * @type {number}
+     */
     this.currentSlideIndex = 0;
 
     this.updateSlidePosition();
@@ -16,13 +34,28 @@ export default class Slider {
     this.handleAvatarClick();
   }
 
+  /**
+   * @returns {number}
+   */
   getVisibleSlidesCount() {
+    /**
+     * @type {number}
+     */
     const containerWidth = this.slidesContainer.offsetWidth;
+    /**
+     * @type {number}
+     */
     const slideWidth = this.slides[0].offsetWidth;
     return Math.floor(containerWidth / slideWidth);
   }
 
+  /**
+   * @returns {void}
+   */
   updateSlidePosition() {
+    /**
+     * @type {number}
+     */
     const slideWidth = this.slides[0].offsetWidth;
     this.slidesContainer.scrollTo({
       left: slideWidth * this.currentSlideIndex,
@@ -30,9 +63,21 @@ export default class Slider {
     });
   }
 
+  /**
+   * @returns {void}
+   */
   changeSlide(direction) {
+    /**
+     * @type {number}
+     */
     const totalSlides = this.slides.length;
+    /**
+     * @type {number}
+     */
     const visibleSlidesCount = this.getVisibleSlidesCount();
+    /**
+     * @type {number}
+     */
     const maxSlideIndex = totalSlides - visibleSlidesCount;
 
     this.currentSlideIndex =
@@ -45,21 +90,34 @@ export default class Slider {
     this.updateSlidePosition();
   }
 
+  /**
+   * @returns {void}
+   */
   handleAvatarClick() {
     this.slides.forEach((slide) => {
       slide.addEventListener("click", () => this.changeAvatar(slide));
     });
   }
 
+  /**
+   * @param {HTMLElement} slide
+   * @returns {void}
+   */
   changeAvatar(slide) {
+    /**
+     * @type {HTMLElement}
+     */
     const choosenAvatar = document.querySelector(".img-avatar");
+    /**
+     * @type {HTMLElement}
+     */
     const newAvatarSrc = slide.getAttribute("src");
 
     if (choosenAvatar) {
       choosenAvatar.setAttribute("src", newAvatarSrc);
 
-      this.slides.forEach((s) => {
-        s.classList.add("opacity-50");
+      this.slides.forEach((otherSlide) => {
+        otherSlide.classList.add("opacity-50");
       });
 
       slide.classList.remove("opacity-50");
