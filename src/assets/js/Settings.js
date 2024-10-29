@@ -6,7 +6,7 @@ export default class Settings {
     /**
      * @type {HTMLElement}
      */
-    this.modalSettings = document.querySelector("#settings");
+    /*     this.modalSettings = document.querySelector("#settings"); */
 
     /**
      * @type {HTMLElement}
@@ -109,8 +109,8 @@ export default class Settings {
 
     localStorage.setItem("settings", JSON.stringify(this.settings));
 
-    this.modalSettings.setAttribute("closing", "");
-    this.modalSettings.removeAttribute("open");
+    /*     this.modalSettings.setAttribute("closing", "");
+    this.modalSettings.removeAttribute("open"); */
   }
 
   /**
