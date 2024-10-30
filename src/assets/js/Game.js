@@ -105,19 +105,55 @@ export default class Game {
    * @returns {void}
    * @param {string} selectedAnswer
    * @param {string} correctAnswer
+   * @param {HTMLElement} selectedElement
    */
-  verifyAnswer(selectedAnswer, correctAnswer) {
+  verifyAnswer(selectedAnswer, correctAnswer, selectedElement) {
+    this.responsesHtml.forEach((responseHtml) => {
+      responseHtml.onclick = null;
+    });
+
     if (selectedAnswer === correctAnswer) {
+      selectedElement.classList.add(
+        "border-8",
+        "border-greenAnswer",
+        "box-border"
+      );
       scoreManager.incrementScore();
+    } else {
+      selectedElement.classList.add(
+        "border-8",
+        "border-redAnswer",
+        "box-border"
+      );
+      this.responsesHtml.forEach((responseHtml) => {
+        if (responseHtml.textContent === correctAnswer) {
+          responseHtml.classList.add(
+            "border-8",
+            "border-greenAnswer",
+            "box-border"
+          );
+        }
+      });
     }
 
-    this.currentQuestionIndex++;
-    localStorage.setItem(
-      "currentQuestion",
-      JSON.stringify(this.currentQuestionIndex)
-    );
-    this.displayQuestion();
-    scoreManager.displayScore(this.currentQuestionIndex);
+    setTimeout(() => {
+      this.responsesHtml.forEach((responseHtml) => {
+        responseHtml.classList.remove(
+          "box-border",
+          "border-8",
+          "border-greenAnswer",
+          "border-redAnswer"
+        );
+      });
+
+      this.currentQuestionIndex++;
+      localStorage.setItem(
+        "currentQuestion",
+        JSON.stringify(this.currentQuestionIndex)
+      );
+      this.displayQuestion();
+      scoreManager.displayScore(this.currentQuestionIndex);
+    }, 1000);
   }
 
   /**
@@ -174,7 +210,7 @@ export default class Game {
           responseHtml.classList.remove("hidden");
           responseHtml.textContent = responses[index];
           responseHtml.onclick = () =>
-            this.verifyAnswer(responses[index], correctAnswer);
+            this.verifyAnswer(responses[index], correctAnswer, responseHtml);
         } else {
           responseHtml.classList.add("hidden");
         }
@@ -184,7 +220,7 @@ export default class Game {
         responseHtml.classList.remove("hidden");
         responseHtml.textContent = responses[index];
         responseHtml.onclick = () =>
-          this.verifyAnswer(responses[index], correctAnswer);
+          this.verifyAnswer(responses[index], correctAnswer, responseHtml);
       });
     }
 
@@ -206,8 +242,8 @@ export default class Game {
     /**
      * @type {object}
      * @property {object} user
-     * @property {number} user
-     * @property {string} user
+     * @property {number} score
+     * @property {string} date
      */
     const userScore = {
       user: currentUser,

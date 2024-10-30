@@ -6,8 +6,7 @@ export default class Settings {
     /**
      * @type {HTMLElement}
      */
-    this.modalSettings = document.querySelector("#settings");
-
+    this.msgSettings = document.querySelector(".msg-settings");
     /**
      * @type {HTMLElement}
      */
@@ -62,6 +61,7 @@ export default class Settings {
    * @returns {void}
    */
   init() {
+    this.msgSettings.textContent = "";
     this.fetchCategories();
     this.btnSave.addEventListener("click", (e) => this.handleSave(e));
     this.btnReset.addEventListener("click", (e) => this.handleReset(e));
@@ -109,8 +109,10 @@ export default class Settings {
 
     localStorage.setItem("settings", JSON.stringify(this.settings));
 
-    this.modalSettings.setAttribute("closing", "");
-    this.modalSettings.removeAttribute("open");
+    this.msgSettings.textContent = "Settings saved";
+    setTimeout(() => {
+      this.msgSettings.textContent = "";
+    }, 2000);
   }
 
   /**
@@ -129,6 +131,11 @@ export default class Settings {
 
     this.applySettingsToForm();
     localStorage.setItem("settings", JSON.stringify(this.settings));
+
+    this.msgSettings.textContent = "Settings reset";
+    setTimeout(() => {
+      this.msgSettings.textContent = "";
+    }, 2000);
   }
 
   /**
