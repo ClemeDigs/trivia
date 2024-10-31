@@ -64,7 +64,7 @@ export default class BestScores {
           <img class="w-[50px] md:w-[65px] lg:w-[80px]" src="${
             user.avatar
           }" alt="avatar de ${user.name}">
-          <p class="font-bold">${user.name}</p>
+          <p class="font-bold w-[50px] lg:w-[70px]">${user.name}</p>
           <p style="background-image: url(${imgScore})" class="bg-[length:70%] lg:bg-[length:75%] bg-no-repeat bg-center text-[16px] md:text-[20px] lg:text-[38px] font-semibold text-center text-offWhite drop-shadow-trivia px-4 py-5 md:px-8 md:py-10">
             ${bestScore.score}&nbsp;%
           </p>
