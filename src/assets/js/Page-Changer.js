@@ -3,9 +3,6 @@ import imgMountain from "../img/mountain.png";
 import imgBeach from "../img/beach.png";
 import imgScore from "../img/score.svg";
 
-/**
- * @type {PageChanger}
- */
 export default class PageChanger {
   constructor() {
     /**
@@ -84,7 +81,7 @@ export default class PageChanger {
   }
 
   /**
-   * @param {string} screenName
+   * @param {"game" | "end" | "accueil"}} screenName
    * @returns {void}
    */
   switchScreen(screenName) {

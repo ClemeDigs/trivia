@@ -65,6 +65,7 @@ export default class Slider {
 
   /**
    * @returns {void}
+   * @param {number} direction
    */
   changeSlide(direction) {
     /**
@@ -109,7 +110,7 @@ export default class Slider {
      */
     const choosenAvatar = document.querySelector(".img-avatar");
     /**
-     * @type {HTMLElement}
+     * @type {string | null}
      */
     const newAvatarSrc = slide.getAttribute("src");
 

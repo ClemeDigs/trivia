@@ -83,7 +83,7 @@ const currentAvatarHtml = document.querySelector(".current-avatar");
 const msgError = document.querySelector(".msg-error");
 
 /**
- * @type {[]}
+ * @type {Object[]}
  */
 let bestScores = JSON.parse(localStorage.getItem("bestScores")) || [];
 
@@ -97,7 +97,7 @@ const bestScoresInstance = new BestScores(bestScores);
  */
 function checkCurrentUser() {
   /**
-   * @type {Object}
+   * @type {{ name: string, avatar: string } | null}
    */
   const currentUser = JSON.parse(localStorage.getItem("currentUser"));
 

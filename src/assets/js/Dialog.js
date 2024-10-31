@@ -41,8 +41,8 @@ export default class Dialog {
   }
 
   /**
-   * @returns {void}
    * @param {MouseEvent} e
+   * @returns {void}
    */
   toggleDialog(e) {
     /**
@@ -61,7 +61,7 @@ export default class Dialog {
       const dialog = document.querySelector(dialogSelector);
 
       if (dialog) {
-        if (dialog.checkVisibility()) {
+        if (dialog.hasAttribute("open")) {
           this.closingDialog(dialog);
         } else {
           dialog.setAttribute("open", "");
@@ -71,8 +71,8 @@ export default class Dialog {
   }
 
   /**
+   * @param {HTMLElement} dialog
    * @returns {void}
-   * @param {HTMLElement}
    */
   closingDialog(dialog) {
     dialog.setAttribute("closing", "");
@@ -82,8 +82,8 @@ export default class Dialog {
   }
 
   /**
+   * @param {HTMLElement} dialog
    * @returns {void}
-   * @param {HTMLElement}
    */
   closeDialog(dialog) {
     dialog.removeAttribute("open");

@@ -26,7 +26,7 @@ export default class Settings {
      */
     this.typeRadios = document.querySelectorAll('input[name="type"]');
     /**
-     * @type {HTMLElement}
+     * @type {HTMLInputElement}
      */
     this.nbQuestionsInput = document.querySelector("#nb-question");
     /**
@@ -169,9 +169,6 @@ export default class Settings {
    * @returns {void}
    */
   loadSettingsFromLocalStorage() {
-    /**
-     * @type {string}
-     */
     const savedSettings = localStorage.getItem("settings");
     if (savedSettings) {
       this.settings = JSON.parse(savedSettings);
@@ -202,9 +199,6 @@ export default class Settings {
    * @returns {string}
    */
   getUrlBySettings() {
-    /**
-     * @type {string}
-     */
     const url = "https://opentdb.com/api.php";
     if (!this.settings) {
       return `${url}?amount=10`;

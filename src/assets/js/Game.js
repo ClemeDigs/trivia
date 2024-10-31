@@ -52,8 +52,8 @@ export default class Game {
   }
 
   /**
-   * @returns {void}
    * @param {string} url
+   * @returns {Promise<void>}
    */
   fetchGame(url) {
     return fetch(url)
@@ -102,10 +102,10 @@ export default class Game {
   }
 
   /**
-   * @returns {void}
    * @param {string} selectedAnswer
    * @param {string} correctAnswer
    * @param {HTMLElement} selectedElement
+   * @returns {void}
    */
   verifyAnswer(selectedAnswer, correctAnswer, selectedElement) {
     this.responsesHtml.forEach((responseHtml) => {

@@ -24,6 +24,12 @@ export default class User {
      * @type {string}
      */
     this.avatar = avatar;
+
+    /**
+     * @type {User|null}
+     */
+
+    this.currentUser = null;
   }
 
   /**
@@ -41,7 +47,7 @@ export default class User {
    */
   static getCurrentUser() {
     /**
-     * @type {object}
+     * @type {object|null}
      */
     const currentUserData = JSON.parse(localStorage.getItem("currentUser"));
 

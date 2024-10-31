@@ -115,8 +115,8 @@ export default class ScoreManager {
   }
 
   /**
-   * @param {number}
-   * @param {number}
+   * @param {number} scorePercent
+   * @param {number} totalQuestions
    * @returns {void}
    */
   addScore(scorePercent, totalQuestions) {

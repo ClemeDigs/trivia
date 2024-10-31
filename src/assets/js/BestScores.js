@@ -1,22 +1,19 @@
 import imgScore from "../img/score.svg";
 
-/**
- * @type {BestScores}
- */
 export default class BestScores {
   constructor() {
     /**
-     * @type {Object[]}
+     * @type {{user: Object|string, score: number, date: string|Date}[]}
      */
     this.savedBestScores = JSON.parse(localStorage.getItem("bestScores")) || [];
 
     /**
-     * @type {HTMLElement}
+     * @type {HTMLElement|null}
      */
     this.bestScoresContainer = document.querySelector(".best-scores-container");
 
     /**
-     * @type {HTMLElement}
+     * @type {HTMLElement|null}
      */
     this.modaleContainerBestScoresHtml = document.querySelector(
       ".best-scores-modale"
@@ -34,7 +31,7 @@ export default class BestScores {
   }
 
   /**
-   * @returns {HTMLElement}
+   * @returns {string}
    */
   toBestScoreLigne() {
     /**
@@ -54,15 +51,11 @@ export default class BestScores {
 
       /**
        * @type {Date}
-       * @param {string|Date}
        */
       const date = new Date(bestScore.date);
 
       /**
-       * @type {Object}
-       * @property {string} year
-       * @property {string} month
-       * @property {string} day
+       * @type {Date}
        */
       const options = { year: "numeric", month: "long", day: "numeric" };
 
@@ -91,7 +84,7 @@ export default class BestScores {
   displayBestScores() {
     this.sortScores();
     /**
-     * @type {HTMLElement}
+     * @type {string}
      */
     const scoresHtml = this.toBestScoreLigne();
 
